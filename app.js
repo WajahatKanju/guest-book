@@ -9,8 +9,9 @@ const app = express();
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
-let entries;
-entries = app.locals.entries;
+let entries = [];
+app.locals.entries = entries;
+
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,7 +42,7 @@ app.post("/new-entry", function (req, res) {
 });
 
 app.use((req, res) => {
-    res.status(404).render(404);
+    res.status(404).render('404');
 })
 
 http.createServer(app).listen(3000, () => {
